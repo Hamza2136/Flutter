@@ -2,7 +2,7 @@ import "dart:math";
 
 import "package:flutter/material.dart";
 
-class FirstScreen extends StatelessWidget{
+class FirstScreen extends StatelessWidget {
   const FirstScreen({super.key});
   @override
   Widget build(BuildContext context) {
@@ -10,16 +10,15 @@ class FirstScreen extends StatelessWidget{
         color: Colors.deepPurpleAccent,
         child: Center(
             child: Text(
-              LuckyNumber(),
-              textDirection: TextDirection.ltr,
-              style: const TextStyle(fontSize: 40.0, color: Colors.white),
-            )
-        )
-    );
+          luckynumber(),
+          textDirection: TextDirection.ltr,
+          style: const TextStyle(fontSize: 40.0, color: Colors.white),
+        )));
   }
-  String LuckyNumber(){
+
+  String luckynumber() {
     var rand = Random();
-    int lucky_num = rand.nextInt(10);
-    return "Lucky Number is ${lucky_num}";
+    int lnum = rand.nextInt(10);
+    return "Lucky Number is $lnum";
   }
 }
