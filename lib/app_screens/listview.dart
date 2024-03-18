@@ -5,10 +5,11 @@ class LView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return getListView();
+    return longlistview();
   }
 
-  Widget getListView() {
+// Simple List View..........
+  Widget simplelistview() {
     var listview = ListView(
       children: [
         ListTile(
@@ -31,6 +32,40 @@ class LView extends StatelessWidget {
         )
       ],
     );
+    return listview;
+  }
+
+  // Snack Bar.............
+  void showSnackBar(BuildContext context, String item) {
+    var snackBar = SnackBar(
+      content: Text("$item is tapped"),
+      action: SnackBarAction(
+          label: 'UNDO',
+          onPressed: () {
+            debugPrint("Undo is pressed for $item");
+          }),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  // Creating a List of 1000 Strings...........
+  List<String> genratelistitems() {
+    var items = List<String>.generate(1000, (index) => "Item $index");
+    return items;
+  }
+
+  // Long List...........
+  Widget longlistview() {
+    var listitem = genratelistitems();
+    var listview = ListView.builder(itemBuilder: (context, index) {
+      return ListTile(
+        leading: const Icon(Icons.arrow_right),
+        title: Text(listitem[index]),
+        onTap: () {
+          showSnackBar(context, listitem[index]);
+        },
+      );
+    });
     return listview;
   }
 }
