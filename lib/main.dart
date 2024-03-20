@@ -1,32 +1,84 @@
-import "package:firstapp/app_screens/listview.dart";
 import "package:flutter/material.dart";
-//import "package:flutter/widgets.dart";
-//import "./app_screens/home.dart";
 
 void main() {
-  runApp(const HomeScreen());
+  runApp(const MaterialApp(
+    title: "Example of Statefull widget",
+    home: FavouriteCity(),
+  ));
 }
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class FavouriteCity extends StatefulWidget {
+  const FavouriteCity({super.key});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _FavouriteCity();
+  }
+}
+
+class _FavouriteCity extends State<FavouriteCity> {
+  String cityName = "";
+  final _curcurrencies = ['Rupees', 'Dollars', 'Rayals', 'Pounds'];
+  var selectedCurrency = 'Rupees';
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "UI with Widget",
-      home: Scaffold(
-          appBar: AppBar(
-            title: const Text("Long List View"),
-            backgroundColor: const Color.fromARGB(255, 36, 92, 137),
-          ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              debugPrint("FAB Clicked");
-            },
-            tooltip: 'Add new item',
-            child: const Icon(Icons.add),
-          ),
-          body: const LView()),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Favourite City and currency"),
+        backgroundColor: Colors.cyanAccent,
+      ),
+      body: Container(
+        margin: const EdgeInsets.all(20.0),
+        child: Column(
+          children: [
+// Text Field Starts
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: TextField(onChanged: (String userinput) {
+                setState(() {
+                  cityName = userinput;
+                });
+              }),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Text(
+                "Your Favourite City is $cityName",
+                style: const TextStyle(
+                    fontSize: 20.0,
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.w700),
+              ),
+            ),
+
+//Dropdown Button Starts
+            DropdownButton<String>(
+              items: _curcurrencies.map((String dropdownStringItem) {
+                return DropdownMenuItem(
+                    value: dropdownStringItem, child: Text(dropdownStringItem));
+              }).toList(),
+              onChanged: (value) {
+                setState(() {
+                  selectedCurrency = value.toString();
+                });
+              },
+              value: selectedCurrency,
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Text(
+                "Your Currency is $selectedCurrency",
+                style: const TextStyle(
+                    fontSize: 20.0,
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.w700),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
